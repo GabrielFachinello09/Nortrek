@@ -1,0 +1,27 @@
+.vitrine-produtos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.card-produto {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.container-imagem {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background-color: #f9f9f9;
+}
+
+.imagem-produto {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Mantém a proporção da imagem sem distorcer */
+}
