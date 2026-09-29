@@ -1,5 +1,5 @@
 <!-- Este é o header que faremos include no index.php -->
-<header class="site-header">
+<header>
         <nav class="nav-links">
             <a href="/mini-sistema/nortrek/index.php">Início</a>
             <a href="/mini-sistema/nortrek/app/create.php">Cadastrar Produto</a>
