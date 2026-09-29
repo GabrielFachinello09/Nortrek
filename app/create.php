@@ -26,19 +26,21 @@ require_once __DIR__ . '/../includes/functions.php'; ?>
 
         <aside class="sidebar">
   <h3>Categorias</h3>
-  <ul>
-    <li><a href="index.php">Todas</a></li>
-    <li><a href="index.php?categoria=Barracas">Barracas</a></li>
-    <li><a href="index.php?categoria=Mochilas">Mochilas</a></li>
-    <li><a href="index.php?categoria=Iluminação">Iluminação</a></li>
-    <li><a href="index.php?categoria=Cozinha">Cozinha</a></li>
-    <li><a href="index.php?categoria=Vestuário">Vestuário</a></li>
-    <li><a href="index.php?categoria=Acessórios">Acessórios</a></li>
-    <li><a href="index.php?categoria=Equipamentos">Equipamentos</a></li>
-    <li><a href="index.php?categoria=Camping">Camping</a></li>
-    <li><a href="index.php?categoria=Trilhas">Trilhas</a></li>
-  </ul>
-</aside>
+ <label for="categoria">Categorias:</label>
+<select id="categoria" name="categoria">
+  <option value="">Selecione uma categoria</option>
+  <option value="todas">Todas</option>
+  <option value="barracas">Barracas</option>
+  <option value="mochilas">Mochilas</option>
+  <option value="iluminacao">Iluminação</option>
+  <option value="cozinha">Cozinha</option>
+  <option value="vestuario">Vestuário</option>
+  <option value="acessorios">Acessórios</option>
+  <option value="equipamentos">Equipamentos</option>
+  <option value="camping">Camping</option>
+  <option value="trilhas">Trilhas</option>
+</select>
+<br>
         <label for="descricao">Descrição: </label>
         <textarea name="descricao" id="descricao" rows="4" cols="40" placeholder="Digite uma Descrição Breve do Produto" required></textarea><br>
         
