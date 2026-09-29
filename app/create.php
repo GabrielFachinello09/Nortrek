@@ -17,7 +17,7 @@ require_once __DIR__ . '/../includes/functions.php'; ?>
     <br>
     <hr>
     <br>
-    <form action="" method='POST'>
+    <form action="" method='POST' enctype="multipart/form-data">
         <label for="nome">Nome do produto: </label>
         <input type="text" name="nome" id="nome" required><br>
 
@@ -52,9 +52,12 @@ require_once __DIR__ . '/../includes/functions.php'; ?>
 
         <label for="avaliacao">Avaliação (0 a 5): </label>
         <input type="number" name="avaliacao" id="avaliacao" step="0.1" min="0" max="5"><br>
-
-        <label for="imagem">URL da imagem: </label>
-        <input type="text" name="imagem" id="imagem" placeholder="https://..."><br>
+        
+        
+        <label for="imagem">Escolha o Arquivo da Imagem:  </label>
+        <input type="file" name="imagem" id="imagem" accept="image/*" required><br>
+        
+        
         <br>
 
         <input type="reset" value="Limpar">
@@ -63,19 +66,21 @@ require_once __DIR__ . '/../includes/functions.php'; ?>
 
     <?php
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            cadastrar_produto(
-                $conexao, 
-                $_POST['nome'], 
-                $_POST['marca'], 
-                $_POST['categoria'], 
-                $_POST['descricao'],
-                $_POST['preco'], 
-                $_POST['estoque'], 
-                $_POST['avaliacao'], 
-                $_POST['imagem']
-            );
-                
-        }
+    // Captura o arquivo de $_FILES em vez de $_POST
+    $imagem = $_FILES['imagem'] ?? null;
+
+    cadastrar_produto(
+        $conexao, 
+        $_POST['nome'], 
+        $_POST['marca'], 
+        $_POST['categoria'], 
+        $_POST['descricao'],
+        $_POST['preco'], 
+        $_POST['estoque'], 
+        $_POST['avaliacao'], 
+        $imagem // Passa $_FILES['imagem']
+    );
+}
         
         include __DIR__ . '/../includes/footer.php'; 
         ?>
