@@ -12,7 +12,7 @@ require_once __DIR__ . '/../includes/functions.php';
 </head>
 <hr>
 
-<body style="text-align:center;">  
+<body>  
   
     <h1>Consulta de Produto</h1>
     <?php include __DIR__ . '/../includes/header.php'; ?>

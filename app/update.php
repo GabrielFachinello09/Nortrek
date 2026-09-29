@@ -11,7 +11,7 @@ require_once __DIR__ . '/../includes/functions.php';
     <link rel="stylesheet" href="/mini-sistema/nortrek/css/style.css">
 
 </head>
-<body style="text-align:center;">
+<body>
 
     <h1>Atualizar Produtos</h1>
     <?php include __DIR__ . '/../includes/header.php'; ?>

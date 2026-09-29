@@ -10,7 +10,7 @@ require_once __DIR__ . '/../includes/functions.php'; ?>
     <link rel="stylesheet" href="/mini-sistema/nortrek/css/style.css">
 
 </head>
-<body style="text-align:center;">
+<body>
     <br>
     <h1>Cadastro de Produtos</h1>
     <?php include __DIR__ .'/../includes/header.php'; ?>
@@ -24,19 +24,21 @@ require_once __DIR__ . '/../includes/functions.php'; ?>
         <label for="marca">Marca: </label>
         <input type="text" name="marca" id="marca" required><br> 
 
-        <label for="categoria">Categoria: </label>
-        <select name="categoria" id="categoria" required>
-            <option value="Barracas">Barracas</option>
-            <option value="Mochilas">Mochilas</option>
-            <option value="Iluminação">Iluminação</option>
-            <option value="Cozinha">Cozinha</option>
-            <option value="Vestuário">Vestuário</option>
-            <option value="Acessórios">Acessórios</option>
-            <option value="Equipamentos">Equipamentos</option>
-            <option value="Camping">Camping</option>
-            <option value="Trilhas">Trilhas</option>
-        </select><br>
-
+        <aside class="sidebar">
+  <h3>Categorias</h3>
+  <ul>
+    <li><a href="index.php">Todas</a></li>
+    <li><a href="index.php?categoria=Barracas">Barracas</a></li>
+    <li><a href="index.php?categoria=Mochilas">Mochilas</a></li>
+    <li><a href="index.php?categoria=Iluminação">Iluminação</a></li>
+    <li><a href="index.php?categoria=Cozinha">Cozinha</a></li>
+    <li><a href="index.php?categoria=Vestuário">Vestuário</a></li>
+    <li><a href="index.php?categoria=Acessórios">Acessórios</a></li>
+    <li><a href="index.php?categoria=Equipamentos">Equipamentos</a></li>
+    <li><a href="index.php?categoria=Camping">Camping</a></li>
+    <li><a href="index.php?categoria=Trilhas">Trilhas</a></li>
+  </ul>
+</aside>
         <label for="descricao">Descrição: </label>
         <textarea name="descricao" id="descricao" rows="4" cols="40" placeholder="Digite uma Descrição Breve do Produto" required></textarea><br>
         
