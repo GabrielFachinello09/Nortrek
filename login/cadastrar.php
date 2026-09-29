@@ -1,5 +1,5 @@
 <?php require_once __DIR__ . '/../includes/functions.php'; 
-require_once __DIR__ . '/../login/verifica_admin.php';?>
+?>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -11,7 +11,7 @@ require_once __DIR__ . '/../login/verifica_admin.php';?>
 </head>
 <body>
         <h1>Cadastro de Clientes</h1>
-        <?php include __DIR__ . '/../includes/header.php'; ?>
+        
         <br>
         <form action="" method="post">
             
@@ -31,7 +31,7 @@ require_once __DIR__ . '/../login/verifica_admin.php';?>
         </form>
         <br>
         <a href="/mini-sistema/nortrek/login/login.php">Fazer Login</a>
-   
+    
     <?php
         if($_SERVER['REQUEST_METHOD']=="POST") {
             cadastrar_cliente(
@@ -44,5 +44,7 @@ require_once __DIR__ . '/../login/verifica_admin.php';?>
         }
         include __DIR__ .'/../includes/footer.php'; 
     ?>
+
+
 </body>
 </html>
