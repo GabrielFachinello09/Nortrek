@@ -9,7 +9,7 @@ require_once __DIR__ . '/../login/verifica_admin.php';?>
     <title>Cadastro Usuário</title>
     <link rel="stylesheet" href="/mini-sistema/nortrek/css/style.css">
 </head>
-<body style="text-align:center;">
+<body>
         <h1>Cadastro de Clientes</h1>
         <?php include __DIR__ . '/../includes/header.php'; ?>
         <br>

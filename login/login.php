@@ -8,7 +8,7 @@ session_start();?>
     <title>Login</title>
     <link rel="stylesheet" href="/mini-sistema/nortrek/css/style.css">
 </head>
-    <body style="text-align:center;">
+    <body>
 
      <h1>Faça Login</h1>
     <br>
