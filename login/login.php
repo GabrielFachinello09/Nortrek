@@ -41,7 +41,10 @@ session_start();?>
                 echo "Usuário ou senha inválidos.";
             }
         }
+
     ?>
+
+    <a href="/mini-sistema/nortrek/login/cadastrar.php">Ainda não possui login? Cadastre-se</a>
 
     <?php include __DIR__ .'/../includes/footer.php'; ?>
 </body>
