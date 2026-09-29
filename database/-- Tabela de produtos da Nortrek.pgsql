@@ -1,0 +1,26 @@
+-- Tabela de produtos da Nortrek
+-- CREATE TABLE produtos (
+--     id SERIAL PRIMARY KEY NOT NULL,
+--     nome VARCHAR(100) NOT NULL,
+--     marca VARCHAR(60),
+--     categoria VARCHAR(50),
+--     descricao TEXT,
+--     preco NUMERIC(10,2) NOT NULL,
+--     estoque INTEGER NOT NULL DEFAULT 0,
+--     avaliacao NUMERIC(2,1) CHECK (avaliacao >= 0 AND avaliacao <= 5),
+--     imagem VARCHAR(255),
+--     criado_em TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+-- );
+
+-- -- Tabela de clientes da Nortrek
+-- CREATE TABLE clientes (
+--     id SERIAL PRIMARY KEY NOT NULL,
+--     nome VARCHAR(100) NOT NULL,
+--     email VARCHAR(100) UNIQUE NOT NULL,
+--     senha VARCHAR(255) NOT NULL,
+--     telefone VARCHAR(20),
+--     criado_em TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+-- );
+
+-- SELECT * FROM produtos;
+-- SELECT * FROM clientes;
