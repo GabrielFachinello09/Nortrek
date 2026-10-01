@@ -44,6 +44,7 @@ else {
         <nav>
             <a href="/mini-sistema/nortrek/index.php">Início</a> | 
             <a href="/mini-sistema/nortrek/login/login.php">Login / Entrar</a>
+            <a href="/mini-sistema/nortrek/login/cadastrar.php">Cadastrar Cliente</a>
         </nav>
     </header>
     <?php
