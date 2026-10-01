@@ -146,3 +146,41 @@ function consulta_cliente($conexao, $email)
 
     return $cliente;
 }
+
+function buscar_produtos_filtrados($conexao, $busca = '', $categoria = '', $ordem = '') {
+    $sql = "SELECT * FROM produtos WHERE 1=1";
+    $params = [];
+
+    // Filtro por Nome ou Descrição (insensível a maiúsculas/minúsculas)
+    if (!empty($busca)) {
+        $sql .= " AND (LOWER(nome) LIKE LOWER(:busca) OR LOWER(descricao) LIKE LOWER(:busca))";
+        $params[':busca'] = '%' . $busca . '%';
+    }
+
+    // Filtro por Categoria
+    if (!empty($categoria) && $categoria !== 'todas') {
+        $sql .= " AND LOWER(categoria) = LOWER(:categoria)";
+        $params[':categoria'] = strtolower($categoria);
+    }
+
+    // Ordenação dos resultados
+    switch ($ordem) {
+        case 'preco_asc':
+            $sql .= " ORDER BY preco ASC";
+            break;
+        case 'preco_desc':
+            $sql .= " ORDER BY preco DESC";
+            break;
+        case 'avaliacao':
+            $sql .= " ORDER BY avaliacao DESC";
+            break;
+        default:
+            $sql .= " ORDER BY id DESC";
+            break;
+    }
+
+    $stmt = $conexao->prepare($sql);
+    $stmt->execute($params);
+    
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
