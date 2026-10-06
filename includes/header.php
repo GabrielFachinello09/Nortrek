@@ -1,4 +1,3 @@
-
 <header>
         <nav class="nav-links">
             <a href="/mini-sistema/nortrek/index.php">Início</a>
