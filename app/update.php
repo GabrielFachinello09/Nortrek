@@ -17,7 +17,7 @@ require_once __DIR__ . '/../includes/functions.php';
     <?php include __DIR__ . '/../includes/header.php'; ?>
     
 
-    <form action="" method='POST'>
+    <form action="" method='POST' enctype="multipart/form-data">
         <label for="id">ID do produto: </label>
         <input type="number" name="id" id="id" required><br>
         <br>
@@ -53,8 +53,8 @@ require_once __DIR__ . '/../includes/functions.php';
         <label for="avaliacao">Avaliação (0 a 5): </label>
         <input type="number" name="avaliacao" id="avaliacao" step="0.1" min="0" max="5"><br>
 
-        <label for="imagem">URL da imagem: </label>
-        <input type="text" name="imagem" id="imagem" placeholder="https://..."><br>
+        <label for="imagem">Nova imagem (opcional): </label>
+        <input type="file" name="imagem" id="imagem" accept="image/jpeg,image/png,image/webp">
         <br>
 
         <input type="reset" value="Limpar">
@@ -62,21 +62,22 @@ require_once __DIR__ . '/../includes/functions.php';
     </form>
 
     <?php 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            atualizar_produto(
-                $conexao,
-                $_POST['id'],
-                $_POST['nome'],
-                $_POST['marca'],
-                $_POST['categoria'],
-                $_POST['descricao'],
-                $_POST['preco'],
-                $_POST['estoque'],
-                $_POST['avaliacao'],
-                $_POST['imagem']
-            );
-        }
-        include __DIR__ . '/../includes/footer.php'; 
-    ?>
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        atualizar_produto(
+            $conexao,
+            $_POST['id'],
+            $_POST['nome'],
+            $_POST['marca'],
+            $_POST['categoria'],
+            $_POST['descricao'],
+            $_POST['preco'],
+            $_POST['estoque'],
+            $_POST['avaliacao'],
+            $_FILES['imagem'] ?? null   // 
+        );
+    }
+    include __DIR__ . '/../includes/footer.php'; 
+?>
+
 </body>
 </html>
