@@ -1,0 +1,113 @@
+/* ==========================================================================
+   NORTREK · global.css
+   Base do documento: layout da página, tipografia, links, acessibilidade.
+
+   Layout: o <body> é uma coluna flex. Isso permite:
+   - header sempre no topo e footer sempre no rodapé (via `order`),
+     mesmo nas páginas em que o <h1> vem antes do include do header;
+   - centralizar formulários e blocos sem alterar o HTML.
+   ========================================================================== */
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: var(--font-text);
+    font-size: var(--text-base);
+    line-height: 1.6;
+    color: var(--color-text);
+    background-color: var(--color-background);
+    overflow-x: hidden;
+}
+
+body > header { order: -1; align-self: stretch; }
+body > footer { order: 99; align-self: stretch; margin-top: auto; }
+
+/* <br> usados como espaçadores no HTML não são necessários com flex/grid */
+body > br { display: none; }
+
+/* ---------- Tipografia ---------- */
+
+h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    line-height: 1.2;
+    color: var(--color-primary-dark);
+}
+
+h1 {
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+}
+
+h2 { font-size: var(--text-xl); font-weight: 700; }
+h3 { font-size: var(--text-lg); font-weight: 600; }
+
+/* Título de página: centralizado, com "trilha" em terra como detalhe */
+h1::after {
+    content: "";
+    display: block;
+    width: 56px;
+    height: 3px;
+    margin-top: var(--space-3);
+    background: var(--color-accent);
+    border-radius: 2px;
+}
+
+body > h1 {
+    margin: var(--space-6) var(--space-4) var(--space-2);
+    text-align: center;
+}
+
+body > h1::after { margin-inline: auto; }
+
+small { font-size: var(--text-sm); }
+
+/* ---------- Links ---------- */
+
+a {
+    color: var(--color-primary);
+    text-underline-offset: 3px;
+    transition: color var(--transition);
+}
+
+a:hover { color: var(--color-primary-dark); }
+
+body > a {
+    margin-block: var(--space-2);
+    padding: var(--space-2);
+    font-weight: 500;
+}
+
+/* ---------- Separador (hr) em estilo "trilha" ---------- */
+
+hr {
+    width: min(100% - 2rem, var(--container));
+    margin: var(--space-3) 0;
+    border: 0;
+    border-top: 1px dashed var(--color-border);
+}
+
+/* ---------- Acessibilidade ---------- */
+
+:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+}
+
+::selection {
+    background: var(--color-primary-light);
+    color: var(--color-white);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

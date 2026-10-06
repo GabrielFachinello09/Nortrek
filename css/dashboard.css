@@ -1,0 +1,57 @@
+/* ==========================================================================
+   NORTREK · dashboard.css
+   Indicadores do painel administrativo.
+
+   Uso:
+   <div class="dashboard-grid">
+     <div class="stat-card">
+       <span class="stat-label">Produtos</span>
+       <span class="stat-value">42</span>
+     </div>
+     <div class="stat-card stat-card--accent">…</div>
+   </div>
+   ========================================================================== */
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+    gap: var(--space-4);
+    width: min(100% - 2rem, var(--container));
+    margin: var(--space-4) auto;
+}
+
+.stat-card {
+    --stat-color: var(--color-primary);
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-4) var(--space-5);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-left: 5px solid var(--stat-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.stat-label {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+}
+
+.stat-value {
+    font-family: var(--font-heading);
+    font-size: clamp(1.8rem, 1.4rem + 1.5vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--color-primary-dark);
+    font-variant-numeric: tabular-nums;
+}
+
+/* Variações discretas de cor (mesma paleta) */
+.stat-card--accent    { --stat-color: var(--color-accent); }
+.stat-card--secondary { --stat-color: var(--color-secondary); }
+.stat-card--info      { --stat-color: var(--color-info); }

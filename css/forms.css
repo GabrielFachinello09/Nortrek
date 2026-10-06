@@ -1,0 +1,189 @@
+/* ==========================================================================
+   NORTREK · forms.css
+   Campos de formulário (visual) + layout dos formulários de página
+   (cadastro/edição de produto, consulta, exclusão, login, cadastro de cliente).
+
+   Os formulários atuais são filhos diretos do <body> e usam <label> + <input>
+   separados por <br>. O layout abaixo transforma cada um em um "cartão" com
+   labels sempre visíveis acima dos campos, sem mudar o HTML.
+   ========================================================================== */
+
+/* ---------- Campos (visual) ---------- */
+
+.form-control,
+:where(input:not([type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="file"], [type="hidden"]), select, textarea) {
+    width: 100%;
+    min-height: var(--tap-size);
+    padding: 0.6rem 0.85rem;
+    font-size: var(--text-base);
+    line-height: 1.4;
+    color: var(--color-text);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    transition: border-color var(--transition), box-shadow var(--transition), background-color var(--transition);
+}
+
+::placeholder {
+    color: var(--color-text-muted);
+    opacity: 0.8;
+}
+
+.form-control:hover,
+:where(input, select, textarea):hover {
+    border-color: var(--color-primary-light);
+}
+
+.form-control:focus,
+:where(input:not([type="submit"], [type="reset"]), select, textarea):focus {
+    border-color: var(--color-primary);
+    box-shadow: var(--focus-ring);
+    outline: none;
+}
+
+textarea { min-height: 110px; resize: vertical; }
+
+/* Select com seta própria (consistente entre navegadores) */
+select,
+select.form-control {
+    padding-right: 2.5rem;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%232f4f3a' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.85rem center;
+    cursor: pointer;
+}
+
+/* Upload de imagem */
+input[type="file"] {
+    width: 100%;
+    padding: 0.55rem;
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    background: var(--color-surface-tint);
+    border: 1px dashed var(--color-primary-light);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: border-color var(--transition), background-color var(--transition);
+}
+
+input[type="file"]:hover { background: var(--color-surface-secondary); }
+
+input[type="file"]::file-selector-button {
+    margin-right: var(--space-3);
+    padding: 0.45rem 0.9rem;
+    font-weight: 600;
+    color: var(--color-white);
+    background: var(--color-primary);
+    border: 0;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background-color var(--transition);
+}
+
+input[type="file"]::file-selector-button:hover { background: var(--color-primary-dark); }
+
+input:disabled,
+select:disabled,
+textarea:disabled {
+    background: var(--color-surface-secondary);
+    color: var(--color-text-muted);
+    cursor: not-allowed;
+}
+
+/* ---------- Estados de erro / sucesso ----------
+   :user-invalid só dispara depois que a pessoa interage com o campo.
+   Além da cor, o estado de erro usa borda mais grossa (não depende só de cor). */
+
+.form-control.is-invalid,
+:where(input, select, textarea):user-invalid {
+    border-color: var(--color-danger);
+    border-width: 2px;
+    background-color: var(--color-danger-bg);
+}
+
+.form-control.is-invalid:focus,
+:where(input, select, textarea):user-invalid:focus {
+    box-shadow: 0 0 0 3px rgba(166, 75, 67, 0.2);
+}
+
+.form-control.is-valid {
+    border-color: var(--color-success);
+    border-width: 2px;
+}
+
+.form-control.is-valid:focus { box-shadow: 0 0 0 3px rgba(79, 125, 79, 0.2); }
+
+.form-hint {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+}
+
+.form-error,
+.form-success {
+    font-size: var(--text-sm);
+    font-weight: 500;
+}
+
+.form-error   { color: var(--color-danger-text); }
+.form-success { color: var(--color-success-text); }
+.form-error::before   { content: "⚠ "; }
+.form-success::before { content: "✔ "; }
+
+/* ---------- Layout do formulário de página ---------- */
+
+body > form,
+body > form .sidebar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem var(--space-3);
+}
+
+body > form {
+    width: min(100% - 2rem, var(--form-width));
+    margin: var(--space-5) auto;
+    padding: clamp(1.25rem, 3vw, 2rem);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-top: 4px solid var(--color-primary);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+/* <aside class="sidebar"> do create.php envolve os campos: vira só um agrupador */
+body > form .sidebar { flex: 1 1 100%; }
+
+/* O título duplica o label "Categorias:"; fica só para leitores de tela */
+body > form .sidebar h3 {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+body > form br { display: none; }
+
+body > form label {
+    flex: 1 1 100%;
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-primary-dark);
+}
+
+body > form :where(input:not([type="submit"], [type="reset"]), select, textarea) {
+    flex: 1 1 100%;
+    min-width: 0;
+}
+
+/* Botões lado a lado (Limpar / Enviar) */
+body > form :where(input[type="submit"], input[type="reset"], button) {
+    flex: 1 1 140px;
+    margin-top: var(--space-4);
+}
+
+/* Campos de "label + input" que o HTML coloca na mesma linha de texto */
+body > form input[type="number"] { font-variant-numeric: tabular-nums; }

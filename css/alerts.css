@@ -1,0 +1,48 @@
+/* ==========================================================================
+   NORTREK · alerts.css
+   Mensagens de feedback. Cada alerta tem ícone + texto (não depende só de cor).
+
+   Uso:  <div class="alert alert-success" role="status">Produto cadastrado com sucesso</div>
+         <div class="alert alert-danger"  role="alert">Acesso negado</div>
+   ========================================================================== */
+
+.alert {
+    --alert-color: var(--color-info);
+    --alert-bg: var(--color-info-bg);
+    --alert-text: var(--color-info-text);
+
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    width: min(100% - 2rem, var(--form-width));
+    margin: var(--space-3) auto;
+    padding: 0.7rem 1rem;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    line-height: 1.45;
+    color: var(--alert-text);
+    background: var(--alert-bg);
+    border: 1px solid var(--alert-color);
+    border-left-width: 5px;
+    border-radius: var(--radius-sm);
+}
+
+.alert::before {
+    content: "ℹ";
+    flex-shrink: 0;
+    font-weight: 800;
+    line-height: 1.45;
+    color: var(--alert-color);
+}
+
+.alert-success { --alert-color: var(--color-success); --alert-bg: var(--color-success-bg); --alert-text: var(--color-success-text); }
+.alert-success::before { content: "✔"; }
+
+.alert-danger  { --alert-color: var(--color-danger);  --alert-bg: var(--color-danger-bg);  --alert-text: var(--color-danger-text); }
+.alert-danger::before  { content: "✖"; }
+
+.alert-warning { --alert-color: var(--color-warning); --alert-bg: var(--color-warning-bg); --alert-text: var(--color-warning-text); }
+.alert-warning::before { content: "⚠"; }
+
+.alert-info    { --alert-color: var(--color-info);    --alert-bg: var(--color-info-bg);    --alert-text: var(--color-info-text); }
+.alert-info::before    { content: "ℹ"; }

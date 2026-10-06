@@ -1,0 +1,76 @@
+/* ==========================================================================
+   NORTREK · navbar.css
+   Header / navegação. Serve tanto o includes/header.php (admin) quanto o
+   <header class="header-publico"> do index.php (visitante e cliente).
+
+   - A logo "Nortrek" é gerada via ::before, então não exige mudança no HTML.
+   - "Sair" e "Login" são identificados pelo href (a[href$="..."]).
+   ========================================================================== */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    padding: var(--space-2) clamp(1rem, 3vw, 2rem);
+    color: var(--color-accent-light);
+    background-color: var(--color-primary-dark);
+    border-bottom: 3px solid var(--color-accent);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Logo */
+header::before {
+    content: "🏕 NORTREK";
+    flex-shrink: 0;
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    color: var(--color-background);
+}
+
+header nav {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-1);
+}
+
+header nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 var(--space-3);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-background);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: background-color var(--transition), color var(--transition);
+}
+
+header nav a:hover {
+    color: var(--color-white);
+    background-color: rgba(243, 240, 232, 0.14);
+}
+
+header :focus-visible {
+    outline-color: var(--color-accent-light);
+}
+
+/* Área do usuário (direita) */
+header nav a[href$="logout.php"],
+.header-publico nav a[href$="login.php"] {
+    margin-left: auto;
+    border: 1px solid var(--color-accent);
+}
+
+header nav a[href$="logout.php"]:hover,
+.header-publico nav a[href$="login.php"]:hover {
+    background-color: var(--color-accent);
+    color: var(--color-black);
+}

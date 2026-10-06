@@ -1,0 +1,82 @@
+/* ==========================================================================
+   NORTREK · variables.css
+   Design System: todos os tokens (cores, tipografia, espaçamento, sombras).
+   Para mudar a identidade visual do sistema, edite apenas este arquivo.
+   ========================================================================== */
+
+:root {
+    /* ---- Cores: marca ---- */
+    --color-primary: #2f4f3a;          /* verde musgo */
+    --color-primary-dark: #243d2d;     /* verde floresta (header, tabelas) */
+    --color-primary-light: #5f7d61;
+    --color-secondary: #8a6a45;        /* madeira */
+    --color-accent: #c58b4e;           /* terra / trilha */
+    --color-accent-light: #e6cfae;     /* areia (texto sobre fundo escuro) */
+
+    /* ---- Cores: superfícies e texto ---- */
+    --color-background: #f3f0e8;       /* creme */
+    --color-surface: #ffffff;
+    --color-surface-secondary: #e8e3d7;
+    --color-surface-tint: #faf8f3;
+    --color-text: #263128;
+    --color-text-muted: #5b645a;       /* contraste >= 4.5:1 sobre o creme */
+    --color-border: #d8d2c5;
+    --color-focus: #8a6a45;            /* anel de foco (contraste >= 3:1) */
+
+    /* ---- Cores: estados ---- */
+    --color-success: #4f7d4f;
+    --color-warning: #c28a32;
+    --color-danger: #a64b43;
+    --color-info: #52758a;
+
+    --color-success-bg: #eaf2ea;
+    --color-warning-bg: #fbf3e2;
+    --color-danger-bg: #f8e9e7;
+    --color-info-bg: #e8f0f4;
+
+    --color-success-text: #2f5a2f;
+    --color-warning-text: #6b4a12;
+    --color-danger-text: #7d312b;
+    --color-info-text: #2f5062;
+
+    --color-white: #ffffff;
+    --color-black: #151815;
+
+    /* ---- Tipografia ---- */
+    --font-text: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    --font-heading: "Montserrat", "Inter", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
+    --text-2xl: clamp(1.6rem, 1.3rem + 1.2vw, 2.25rem);
+
+    /* ---- Espaçamento ---- */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.5rem;
+    --space-6: 2rem;
+    --space-7: 3rem;
+
+    /* ---- Layout ---- */
+    --container: 1200px;
+    --form-width: 640px;
+    --tap-size: 44px;                  /* área mínima de toque */
+
+    /* ---- Sombras (suaves) ---- */
+    --shadow-sm: 0 2px 6px rgba(38, 49, 40, 0.08);
+    --shadow-md: 0 5px 16px rgba(38, 49, 40, 0.12);
+    --focus-ring: 0 0 0 3px rgba(47, 79, 58, 0.18);
+
+    /* ---- Bordas ---- */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+
+    /* ---- Movimento ---- */
+    --transition: 0.2s ease;
+}

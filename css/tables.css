@@ -1,0 +1,68 @@
+/* ==========================================================================
+   NORTREK · tables.css
+   Tabelas administrativas. Envolva a <table> em .table-responsive para ter
+   rolagem horizontal em telas pequenas sem quebrar o layout da página.
+
+   Uso:
+   <div class="table-responsive">
+     <table class="table">
+       <thead><tr><th>Produto</th><th class="num">Preço</th><th>Ações</th></tr></thead>
+       <tbody>
+         <tr><td>Barraca X</td><td class="num">R$ 599</td>
+             <td><div class="table-actions">…</div></td></tr>
+       </tbody>
+     </table>
+   </div>
+   ========================================================================== */
+
+.table-responsive {
+    width: min(100% - 2rem, var(--container));
+    margin: var(--space-4) auto;
+    overflow-x: auto;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    -webkit-overflow-scrolling: touch;
+}
+
+.table {
+    width: 100%;
+    min-width: 560px;
+    font-size: var(--text-sm);
+}
+
+.table th,
+.table td {
+    padding: 0.8rem 1rem;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.table thead th {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--color-white);
+    background: var(--color-primary-dark);
+}
+
+.table tbody tr { border-top: 1px solid var(--color-border); transition: background-color var(--transition); }
+.table tbody tr:nth-child(even) { background: var(--color-surface-tint); }
+.table tbody tr:hover { background: var(--color-surface-secondary); }
+
+.table .num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Ações separadas visualmente do restante da linha */
+.table td:last-child { border-left: 1px dashed var(--color-border); }
+
+.table-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+}

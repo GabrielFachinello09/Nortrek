@@ -1,0 +1,36 @@
+/* ==========================================================================
+   NORTREK · responsive.css
+   Breakpoints (mobile-first nos componentes; aqui ficam só os ajustes).
+   Catálogo: 4 colunas (desktop) → 3 (notebook) → 2 (tablet) → 1 (celular).
+   ========================================================================== */
+
+/* Notebook pequeno */
+@media (max-width: 1099px) {
+    .vitrine-produtos { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* Tablet */
+@media (max-width: 899px) {
+    .vitrine-produtos { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+
+    header { flex-wrap: wrap; gap: var(--space-2) var(--space-4); }
+    header nav { flex-basis: 100%; }
+}
+
+/* Celular */
+@media (max-width: 599px) {
+    .vitrine-produtos { grid-template-columns: 1fr; }
+
+    /* Filtros empilhados, campos e botões em largura total */
+    .form-filtros > * { flex: 1 1 100% !important; }
+
+    header nav a { min-height: var(--tap-size); }
+    header nav a[href$="logout.php"],
+    .header-publico nav a[href$="login.php"] { margin-left: 0; }
+
+    body > form { padding: var(--space-4); }
+    body > form :where(input[type="submit"], input[type="reset"], button) { flex-basis: 100%; }
+
+    .container { padding-block: var(--space-4) var(--space-6); }
+    .stat-card { padding: var(--space-3) var(--space-4); }
+}
