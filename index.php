@@ -10,11 +10,7 @@ $sql = "SELECT * FROM produtos ORDER BY id DESC";
 $stmt = $conexao->query($sql);
 $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
 
-require_once __DIR__ . '/includes/functions.php';
 
 // Captura os filtros enviados pelo formulário GET
 $busca     = trim($_GET['busca'] ?? '');
@@ -26,36 +22,37 @@ $produtos = buscar_produtos_filtrados($conexao, $busca, $categoria, $ordem);
 ?>
 
 
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nortrek - Equipamentos de Camping</title>
-    <!-- Estilo CSS em caminho absoluto -->
     <link rel="stylesheet" href="/mini-sistema/nortrek/css/style.css">
+    <link rel="icon" type="image/png" href="assets/pinheiro.png">
 </head>
 <body>
 
     <?php 
-// 1. Administrador Logado
 if (isset($_SESSION['perfil']) && $_SESSION['perfil'] === 'admin') {
     include __DIR__ . '/includes/header.php';
 } 
-// 2. Cliente Logado
+
 elseif (isset($_SESSION['perfil']) && $_SESSION['perfil'] === 'cliente') {
     ?>
     <header class="header-publico">
         <nav>
             <a href="/mini-sistema/nortrek/index.php">Início</a> | 
+            
+
+            <a href="/mini-sistema/nortrek/carrinho/carrinho.php">
+                🛒 Carrinho (<?= contar_itens_carrinho($conexao, (int) $_SESSION['id']) ?>)
+            </a> |
             <a href="/mini-sistema/nortrek/login/logout.php">Sair (Logout)</a>
         </nav>
     </header>
     <?php
 } 
-// 3. Visitante Não Logado
 else {
     ?>
     <header class="header-publico">
@@ -68,6 +65,12 @@ else {
     <?php
 }
 ?>
+
+<?php if (($_GET['carrinho'] ?? '') === 'ok'): ?>
+    <div class="alert alert-success" role="status">Produto adicionado ao carrinho.</div>
+<?php elseif (($_GET['carrinho'] ?? '') === 'erro'): ?>
+    <div class="alert alert-danger" role="alert">Não foi possível adicionar o produto.</div>
+<?php endif; ?>
 
 <hr>
    <section class="painel-filtros">
@@ -118,10 +121,10 @@ else {
                         
                         <div class="container-imagem">
                             <?php 
-                            // Garante imagem padrão caso a coluna esteja vazia
+                            
                             $nome_imagem = !empty($produto['imagem']) ? $produto['imagem'] : 'sem-foto.jpg';
                             ?>
-                            <!-- Caminho absoluto para os arquivos de imagem em assets/ -->
+                            
                             <img src="/mini-sistema/nortrek/assets/<?= htmlspecialchars($nome_imagem) ?>" 
                                  alt="<?= htmlspecialchars($produto['nome']) ?>" 
                                  class="imagem-produto">
@@ -137,6 +140,23 @@ else {
                                 <span class="avaliacao">★ <?= htmlspecialchars($produto['avaliacao']) ?></span>
                             </div>
                         </div>
+
+                        
+                        <?php if (($_SESSION['perfil'] ?? '') === 'cliente'): ?>
+                            <div class="acoes-produto">
+                                <form action="/mini-sistema/nortrek/carrinho/adicionar.php" method="POST">
+                                    <input type="hidden" name="produto_id" value="<?= (int) $produto['id'] ?>">
+                                    <button type="submit" class="btn btn-primary"
+                                            <?= $produto['estoque'] < 1 ? 'disabled' : '' ?>>
+                                        <?= $produto['estoque'] < 1 ? 'Sem estoque' : '🛒 Adicionar ao carrinho' ?>
+                                    </button>
+                                </form>
+                            </div>
+                        <?php elseif (!isset($_SESSION['perfil'])): ?>
+                            <div class="acoes-produto">
+                                <a class="btn btn-outline" href="/mini-sistema/nortrek/login/login.php">Entre para comprar</a>
+                            </div>
+                        <?php endif; ?>
 
                     </div>
                 <?php endforeach; ?>
