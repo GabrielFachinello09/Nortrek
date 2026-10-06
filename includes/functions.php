@@ -96,24 +96,89 @@ function consultar_produto($conexao, $id)
 }
 
 
-function atualizar_produto($conexao, $id, $nome, $marca, $categoria, $descricao, $preco, $estoque, $avaliacao, $imagem)
+function atualizar_produto($conexao, $id, $nome, $marca, $categoria, $descricao, $preco, $estoque, $avaliacao, $file_imagem = null)
 {
+    $stmt = $conexao->prepare("SELECT imagem FROM produtos WHERE id = :id");
+    $stmt->execute([':id' => $id]);
+    $atual = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$atual) {
+        echo "Produto não encontrado.";
+        return;
+    }
+
+    $nome_imagem = $atual['imagem'];   
+    $imagem_trocada = false;
+    $diretorio_destino = __DIR__ . '/../assets/';
+
+    
+    if ($file_imagem && $file_imagem['error'] !== UPLOAD_ERR_NO_FILE) {
+
+        if ($file_imagem['error'] !== UPLOAD_ERR_OK) {
+            echo "Erro no envio da imagem.";
+            return;
+        }
+
+        
+        if ($file_imagem['size'] > 2 * 1024 * 1024) {
+            echo "A imagem deve ter no máximo 2 MB.";
+            return;
+        }
+
+       
+        $extensao = strtolower(pathinfo($file_imagem['name'], PATHINFO_EXTENSION));
+        if (!in_array($extensao, ['jpg', 'jpeg', 'png', 'webp'], true)) {
+            echo "Formato inválido. Use JPG, PNG ou WEBP.";
+            return;
+        }
+
+ 
+        $finfo = new finfo(FILEINFO_MIME_TYPE);
+        $mime = $finfo->file($file_imagem['tmp_name']);
+        if (!in_array($mime, ['image/jpeg', 'image/png', 'image/webp'], true)) {
+            echo "O arquivo enviado não é uma imagem válida.";
+            return;
+        }
+
+        
+        $novo_nome = uniqid('prod_') . '.' . $extensao;
+
+        if (!move_uploaded_file($file_imagem['tmp_name'], $diretorio_destino . $novo_nome)) {
+            echo "Erro ao salvar a imagem na pasta assets.";
+            return;
+        }
+
+        $nome_imagem = $novo_nome;
+        $imagem_trocada = true;
+    }
+
+
     $sql = "UPDATE produtos
             SET nome = :nome, marca = :marca, categoria = :categoria, descricao = :descricao,
                 preco = :preco, estoque = :estoque, avaliacao = :avaliacao, imagem = :imagem
             WHERE id = :id";
 
     $stmt = $conexao->prepare($sql);
-    $stmt->bindParam(":nome", $nome);
-    $stmt->bindParam(":marca", $marca);
-    $stmt->bindParam(":categoria", $categoria);
-    $stmt->bindParam(":descricao", $descricao);
-    $stmt->bindParam(":preco", $preco);
-    $stmt->bindParam(":estoque", $estoque);
-    $stmt->bindParam(":avaliacao", $avaliacao);
-    $stmt->bindParam(":imagem", $imagem);
-    $stmt->bindParam(":id", $id);
-    $stmt->execute();
+    $stmt->execute([
+        ':nome'      => $nome,
+        ':marca'     => $marca,
+        ':categoria' => $categoria,
+        ':descricao' => $descricao,
+        ':preco'     => $preco,
+        ':estoque'   => $estoque,
+        ':avaliacao' => ($avaliacao === '' ? null : $avaliacao),
+        ':imagem'    => $nome_imagem,
+        ':id'        => $id
+    ]);
+
+
+    if ($imagem_trocada && !empty($atual['imagem']) && $atual['imagem'] !== 'sem-foto.jpg'
+        && !str_starts_with($atual['imagem'], 'http')) {
+        $caminho_antigo = $diretorio_destino . basename($atual['imagem']);
+        if (is_file($caminho_antigo)) {
+            unlink($caminho_antigo);
+        }
+    }
 
     echo "Produto atualizado com sucesso!";
 }
@@ -183,4 +248,58 @@ function buscar_produtos_filtrados($conexao, $busca = '', $categoria = '', $orde
     $stmt->execute($params);
     
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
+// ===== Carrinho =====
+
+function adicionar_ao_carrinho($conexao, $cliente_id, $produto_id)
+{
+    // Só adiciona se o produto existe e tem estoque
+    $stmt = $conexao->prepare("SELECT estoque FROM produtos WHERE id = :p");
+    $stmt->execute([':p' => $produto_id]);
+    $produto = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$produto || $produto['estoque'] < 1) {
+        return false;
+    }
+
+    // Se já existe no carrinho, soma 1 (sem passar do estoque)
+    $sql = "INSERT INTO carrinho (cliente_id, produto_id, quantidade)
+            VALUES (:c, :p, 1)
+            ON CONFLICT (cliente_id, produto_id)
+            DO UPDATE SET quantidade = LEAST(carrinho.quantidade + 1, :estoque)";
+
+    $stmt = $conexao->prepare($sql);
+    return $stmt->execute([
+        ':c'       => $cliente_id,
+        ':p'       => $produto_id,
+        ':estoque' => $produto['estoque']
+    ]);
+}
+
+function listar_carrinho($conexao, $cliente_id)
+{
+    $sql = "SELECT c.produto_id, c.quantidade, p.nome, p.marca, p.preco, p.imagem, p.estoque
+            FROM carrinho c
+            JOIN produtos p ON p.id = c.produto_id
+            WHERE c.cliente_id = :c
+            ORDER BY c.adicionado_em DESC";
+
+    $stmt = $conexao->prepare($sql);
+    $stmt->execute([':c' => $cliente_id]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function remover_do_carrinho($conexao, $cliente_id, $produto_id)
+{
+    $stmt = $conexao->prepare("DELETE FROM carrinho WHERE cliente_id = :c AND produto_id = :p");
+    return $stmt->execute([':c' => $cliente_id, ':p' => $produto_id]);
+}
+
+function contar_itens_carrinho($conexao, $cliente_id)
+{
+    $stmt = $conexao->prepare("SELECT COALESCE(SUM(quantidade), 0) FROM carrinho WHERE cliente_id = :c");
+    $stmt->execute([':c' => $cliente_id]);
+    return (int) $stmt->fetchColumn();
 }
