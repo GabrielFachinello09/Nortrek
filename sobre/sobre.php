@@ -1,4 +1,3 @@
-
 <?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -250,7 +249,7 @@ if ($perfil === 'admin') {
 
     <?php include __DIR__ . '/../includes/footer.php'; ?>
 
-    <!-- Script de animação ao descer a página -->
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const observador = new IntersectionObserver((entradas, observer) => {
