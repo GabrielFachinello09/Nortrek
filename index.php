@@ -42,7 +42,7 @@ elseif (isset($_SESSION['perfil']) && $_SESSION['perfil'] === 'cliente') {
     ?>
     <header class="header-publico">
         <nav>
-            <a href="/mini-sistema/nortrek/index.php">Início</a> | 
+            <a href="/mini-sistema/nortrek/index.php">Início</a> | <a href="/mini-sistema/nortrek/sobre/sobre.php">Sobre</a>
             
 
             <a href="/mini-sistema/nortrek/carrinho/carrinho.php">
@@ -57,7 +57,7 @@ else {
     ?>
     <header class="header-publico">
         <nav>
-            <a href="/mini-sistema/nortrek/index.php">Início</a> | 
+            <a href="/mini-sistema/nortrek/index.php">Início</a> | <a href="/mini-sistema/nortrek/sobre/sobre.php">Sobre </a>
             <a href="/mini-sistema/nortrek/login/login.php">Login / Entrar</a>
             <a href="/mini-sistema/nortrek/login/cadastrar.php">Cadastrar Cliente</a>
         </nav>
