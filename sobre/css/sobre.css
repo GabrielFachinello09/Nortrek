@@ -1,0 +1,503 @@
+/* ==========================================================================
+   NORTREK · sobre.css (Animações Suaves + Design Corrigido)
+   ========================================================================== */
+
+html {
+    scroll-behavior: smooth;
+}
+
+.sobre {
+    --sobre-gap: clamp(4rem, 9vw, 6.5rem);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sobre-gap);
+    padding-block: var(--space-6) var(--space-8);
+}
+
+/* ---------- Animações ao Descer a Página (Scroll Reveal) ---------- */
+
+.revelar {
+    opacity: 0;
+    transform: translateY(35px) scale(0.98);
+    filter: blur(5px);
+    transition: 
+        opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), 
+        transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform, filter;
+}
+
+.revelar.ativo {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+}
+
+/* Atrasos em cascata para cartões lado a lado */
+.sobre-grid .sobre-card:nth-child(1) { transition-delay: 0.08s; }
+.sobre-grid .sobre-card:nth-child(2) { transition-delay: 0.20s; }
+.sobre-grid .sobre-card:nth-child(3) { transition-delay: 0.32s; }
+
+.sobre-numeros li:nth-child(1) { transition-delay: 0.08s; }
+.sobre-numeros li:nth-child(2) { transition-delay: 0.20s; }
+.sobre-numeros li:nth-child(3) { transition-delay: 0.32s; }
+
+/* Atraso sequencial para as 9 categorias */
+.sobre-categorias li:nth-child(1) { transition-delay: 0.04s; }
+.sobre-categorias li:nth-child(2) { transition-delay: 0.08s; }
+.sobre-categorias li:nth-child(3) { transition-delay: 0.12s; }
+.sobre-categorias li:nth-child(4) { transition-delay: 0.16s; }
+.sobre-categorias li:nth-child(5) { transition-delay: 0.20s; }
+.sobre-categorias li:nth-child(6) { transition-delay: 0.24s; }
+.sobre-categorias li:nth-child(7) { transition-delay: 0.28s; }
+.sobre-categorias li:nth-child(8) { transition-delay: 0.32s; }
+.sobre-categorias li:nth-child(9) { transition-delay: 0.36s; }
+
+/* ---------- Hero em Destaque ---------- */
+
+.sobre-hero {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    align-items: center;
+    gap: clamp(2rem, 5vw, 4rem);
+    padding: clamp(3rem, 7vw, 5rem);
+    color: var(--color-background);
+    background: linear-gradient(135deg, var(--color-primary-dark) 0%, #172a1e 100%);
+    border-radius: var(--radius-lg);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    border-left: 6px solid var(--color-accent);
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.sobre-hero::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(230, 161, 0, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.sobre-eyebrow {
+    display: inline-block;
+    padding: 0.35rem 0.85rem;
+    margin-bottom: var(--space-4);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(230, 161, 0, 0.3);
+    border-radius: 50px;
+}
+
+.sobre-hero h1 {
+    margin-bottom: var(--space-4);
+    font-size: clamp(2.2rem, 1.8rem + 2vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+}
+
+.sobre-hero p {
+    max-width: 58ch;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: rgba(243, 240, 232, 0.9);
+}
+
+.sobre-hero-acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+}
+
+.sobre-hero .btn-primary {
+    padding: 0.85rem 1.75rem;
+    font-weight: 700;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+.sobre-hero .btn-outline {
+    --btn-fg: #ffffff;
+    --btn-border: rgba(255, 255, 255, 0.4);
+    --btn-hover: rgba(255, 255, 255, 0.12);
+    padding: 0.85rem 1.75rem;
+}
+
+.sobre-hero-logo-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sobre-hero-logo {
+    width: clamp(150px, 20vw, 240px);
+    padding: var(--space-4);
+    background: #ffffff;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+    transform: rotate(-2deg);
+    transition: transform 0.4s ease;
+}
+
+.sobre-hero:hover .sobre-hero-logo {
+    transform: rotate(0deg) scale(1.03);
+}
+
+/* ---------- Faixa de Números em Destaque ---------- */
+
+.sobre-numeros {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: var(--space-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sobre-numeros li {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-6);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sobre-numeros li::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: var(--space-6);
+    width: 40px;
+    height: 4px;
+    background: var(--color-accent);
+    border-radius: 0 0 4px 4px;
+}
+
+.sobre-numeros li:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-primary-light);
+    box-shadow: var(--shadow-md);
+}
+
+.sobre-numeros strong {
+    font-family: var(--font-heading);
+    font-size: clamp(2.2rem, 1.8rem + 1.8vw, 3rem);
+    font-weight: 900;
+    line-height: 1;
+    color: var(--color-primary-dark);
+}
+
+.sobre-numeros span {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--color-text-muted);
+}
+
+/* ---------- Cabeçalhos de Seção ---------- */
+
+.sobre-secao-topo {
+    max-width: 65ch;
+    margin-bottom: var(--space-7);
+}
+
+.sobre-secao-topo h2 {
+    position: relative;
+    font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.4rem);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--color-primary-dark);
+}
+
+.sobre-secao-topo h2::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 4px;
+    margin-top: var(--space-3);
+    background: var(--color-accent);
+    border-radius: 2px;
+}
+
+.sobre-secao-topo p {
+    margin-top: var(--space-3);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--color-text-muted);
+}
+
+/* ---------- Cartões Modernos (Com Correção de Overflow) ---------- */
+
+.sobre-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.sobre-card {
+    min-width: 0; /* Permite redimensionar conteúdos extensos (como e-mails) */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: clamp(1.5rem, 3vw, 2.2rem);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sobre-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--color-primary-light);
+    box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.08);
+}
+
+.sobre-tag-indicador {
+    align-self: flex-start;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-primary-dark);
+    background: var(--color-surface-secondary);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+}
+
+.sobre-badge {
+    align-self: flex-start;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #ffffff;
+    background: var(--color-primary);
+    border-radius: 50px;
+}
+
+.sobre-badge--admin {
+    background: var(--color-secondary, #2d5a27);
+}
+
+.sobre-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+}
+
+.sobre-card p {
+    font-size: var(--text-sm);
+    line-height: 1.75;
+    color: var(--color-text-muted);
+}
+
+.sobre-lista-check {
+    margin: var(--space-2) 0 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sobre-lista-check li {
+    position: relative;
+    padding-left: 1.5rem;
+    font-size: var(--text-sm);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+}
+
+.sobre-lista-check li + li {
+    margin-top: var(--space-3);
+}
+
+.sobre-lista-check li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55rem;
+    width: 7px;
+    height: 7px;
+    background: var(--color-accent);
+    border-radius: 50%;
+}
+
+.sobre-card--perfil { border-top: 5px solid var(--color-primary); }
+.sobre-card--admin  { border-top-color: var(--color-secondary, #2d5a27); }
+
+/* ---------- Categorias (Pills Interativas) ---------- */
+
+.sobre-categorias {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sobre-categorias a {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    text-decoration: none;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 50px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+}
+
+.sobre-categorias a:hover {
+    color: #ffffff;
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+/* ---------- Contato e Ajuste do E-mail ---------- */
+
+.sobre-contato {
+    padding: clamp(2.5rem, 6vw, 4.5rem);
+    background: var(--color-surface-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+}
+
+.sobre-contato .sobre-card {
+    background: var(--color-surface);
+}
+
+.sobre-contato-destaque {
+    display: inline-block;
+    max-width: 100%;
+    margin-block: var(--space-2);
+    font-family: var(--font-heading);
+    font-size: clamp(0.95rem, 0.8rem + 0.6vw, 1.25rem);
+    font-weight: 800;
+    color: var(--color-primary-dark);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    
+    /* Quebra de linha inteligente para o e-mail não vazar do cartão */
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.sobre-contato-destaque:hover {
+    color: var(--color-accent);
+}
+
+.sobre-horarios p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+.sobre-horarios p + p {
+    margin-top: var(--space-2);
+}
+
+.sobre-contato-nota {
+    margin-top: var(--space-6);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+}
+
+/* ---------- Chamada Final (CTA Banner) ---------- */
+
+.sobre-cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+    padding: clamp(2.5rem, 6vw, 4rem);
+    color: #ffffff;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.2);
+}
+
+.sobre-cta h2 {
+    color: #ffffff;
+    font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+    font-weight: 800;
+}
+
+.sobre-cta p {
+    margin-top: var(--space-2);
+    color: var(--color-accent-light);
+    font-size: 1.05rem;
+}
+
+.sobre-cta-acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+}
+
+.sobre-cta .btn-outline {
+    --btn-fg: #ffffff;
+    --btn-border: rgba(255, 255, 255, 0.5);
+    --btn-hover: rgba(255, 255, 255, 0.15);
+}
+
+.sobre-cta .btn-primary {
+    --btn-bg: var(--color-accent);
+    --btn-fg: #000000;
+    --btn-border: var(--color-accent);
+    --btn-hover: var(--color-accent-light);
+    font-weight: 800;
+}
+
+/* ---------- Responsividade ---------- */
+
+@media (max-width: 850px) {
+    .sobre-hero {
+        grid-template-columns: 1fr;
+        text-align: left;
+    }
+
+    .sobre-hero-logo-wrapper {
+        justify-content: flex-start;
+    }
+
+    .sobre-hero-logo {
+        width: 150px;
+        transform: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .sobre-hero-acoes,
+    .sobre-cta-acoes {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .sobre-hero-acoes .btn,
+    .sobre-cta-acoes .btn {
+        width: 100%;
+        text-align: center;
+    }
+}
